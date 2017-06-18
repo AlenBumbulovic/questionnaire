@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mop_home">
+<head>
+<meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/header.css">
+    <link rel="stylesheet" href="stylesheets/footer.css">
+    <link rel="stylesheet" href="stylesheets/questionnaire.css">
+
+<title>MOP Questionnaire</title>
+</head>
+<body ng-controller="homeController as HC">
+
+<% include partials/header.ejs %>
+
+
+<div class="container main-div">
+    <div class="wrapper">
+        <div class="text-center category-title"><h2>Please select a category</h2></div>
+        <div class="category-div text-center" ng-repeat="questionnaire in HC.questionnaires"><a href="/{{questionnaire.questionnaire_id}}">{{questionnaire.questionnaire_title}}</a></div>
+    </div>
+</div>
+
+
+<% include partials/footer.ejs%>
+
+<script src="javascripts/angular.js"></script>
+<script src="javascripts/angular-route.js"></script>
+<script src="javascripts/jquery.min.js"></script>
+<script src="javascripts/bootstrap.js"></script>
+
+
+<script src="scripts/home_app.js"></script>
+<!--<script src="scripts/questionnaire_app"></script>-->
+
+<script src="scripts/modules/config.js"></script>
+<!--<script src="scripts/controllers/questionnaireController.js"></script>-->
+<script src="scripts/controllers/homeController.js"></script>
+
+</body>
+</html>

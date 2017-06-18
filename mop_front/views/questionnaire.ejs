@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mop_questionnaire">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/header.css">
+    <link rel="stylesheet" href="stylesheets/footer.css">
+    <link rel="stylesheet" href="stylesheets/angular-toastr.css">
+    <link rel="stylesheet" href="stylesheets/questionnaire.css">
+
+    <title>MOP Questionnaire</title>
+</head>
+<body ng-controller="questionnaireController as QC">
+
+<% include partials/header.ejs %>
+
+
+<div class="container main-div">
+<div class="questions_wrapper">
+    <div class="row">
+        <div class="col-md-12 questions_title text-center" ng-repeat="question in QC.questions | limitTo:1">
+            <h2>{{question.questionnaire_title}}</h2>
+        </div>
+    </div>
+    <div class="row" ng-repeat="question in QC.questions">
+        <div class="col-md-12 text-center question"><p ng-model="QC.questions[question]">{{question.question_text}}</p></div>
+        <div class="col-md-12 text-center" ng-switch="question.question_type">
+
+            <ul class="answer checkbox-inline" ng-switch-when="2" ng-repeat="answer in question.answers" >
+               <li> <label><input type="checkbox" data-checklist-model="QC.questions.answers[answer.question_id]" data-checklist-value="answer">{{answer.answer}}</label></li>
+             </ul>
+
+            <ul class="answer radio-inline" ng-switch-when="1" ng-repeat="answer in question.answers">
+               <li> <label><input type="radio" class="myCheckbox" name="radio{{answer.question_id}}" ng-model="QC.questions.answers[answer.question_id]" ng-value="answer">{{answer.answer}}</label></li>
+            </ul>
+    </div>
+</div>
+    <div class="row details">
+        <div class="errors col-md-12 text-center" ng-show="QC.showError"><p>Please fill all the fields</p></div>
+
+        <div class="col-md-12 text-center user">
+            <h3>Please fill the form bellow in order to submit your answers</h3>
+        </div>
+        <!--<form>-->
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input ng-model="QC.questions.name" type="text" class="form-control" id="name" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Name</label>
+                <input ng-model="QC.questions.lastname" type="text" class="form-control" id="lastname" placeholder="Lastname" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input ng-model="QC.questions.email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+            </div>
+<div class="form-group text-center">
+            <button type="submit" class="btn btn-default" ng-click="QC.saveAnswers(QC.questions)">Submit Answers</button>
+
+</div>
+        <!--</form>-->
+    </div>
+</div>
+</div>
+
+<% include partials/footer.ejs%>
+
+<script src="javascripts/jquery-3.2.1.js"></script>
+<script src="javascripts/angular.js"></script>
+<script src="javascripts/angular-route.js"></script>
+<script src="javascripts/bootstrap.js"></script>
+<!--<script src="javascripts/angular-toastr.js"></script>-->
+<!--<script src="node_modules/angular-animate/angular-animate.js"></script>-->
+
+
+<!--<script src="scripts/home_app.js"></script>-->
+<script src="scripts/questionnaire_app.js"></script>
+
+<script src="scripts/modules/config.js"></script>
+<script src="scripts/controllers/questionnaireController.js"></script>
+<script src="scripts/directives/checklist-model.js"></script>
+
+</body>
+</html>

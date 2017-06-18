@@ -1,0 +1,13 @@
+footer{
+    /*margin-top: 40px;*/
+    background-color: #ea4335;
+    height: 50px;
+    border-top: 5px solid darkred;
+}
+
+
+footer p {
+    padding-top: 15px;
+    font-size: 18px;
+    color: white;
+}

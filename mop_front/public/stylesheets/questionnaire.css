@@ -1,0 +1,50 @@
+.questions_wrapper{
+    margin-top: 60px;
+}
+
+.questions_title{
+    margin-bottom: 30px;
+}
+
+.question{
+    margin-bottom: 50px;
+    font-size: 20px;
+}
+
+.row{
+    margin-bottom: 60px;
+    border-bottom: 2px solid darkred;
+}
+
+.answer{
+    margin-bottom: 30px;
+    padding-right: 20px;
+}
+
+form{
+    width: 70%;
+    margin-bottom: 30px;
+    padding-left: 30%;
+}
+
+form button{
+    background-color: #ea4335 !important;
+    color: white !important;
+}
+
+.user{
+    margin-bottom: 35px;
+}
+
+.errors{
+    min-height: 50px;
+    background-color: #ea4335;
+    border: 1px solid darkred;
+    border-radius: 3px;;
+    color: white;
+    font-size: 18px;
+}
+
+.errors p{
+    padding-top: 15px;
+}

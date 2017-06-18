@@ -1,0 +1,71 @@
+html,body {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.mopTitle{
+  float: left;
+  padding-left: 40px;
+  font-size: 22px;
+  color: white;
+  padding-top: 25px;
+}
+
+
+.category-title{
+  margin-bottom: 30px;
+  background-color: #ea4335 !important;
+  padding: 10px;
+}
+
+.category-title:hover{
+  background-color: #ea4335 !important;
+}
+
+
+.main-div{
+  padding: 20px;
+  min-height: 100%;
+  margin: 0 auto -50px;
+}
+
+* {box-sizing: border-box;}
+.wrapper {
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.wrapper > div {
+  border: 5px solid darkred;
+  border-radius: 5px;
+  background-color: #ed212f;
+  color: white;
+}.wrapper {
+   padding-top: 50px;
+   margin-top: 50px;
+ }
+
+ .wrapper > div:hover{
+   background-color: firebrick;
+ }
+.category-div {
+  font-size: 18px;
+  grid-column: 1 / 2;
+  grid-row: 1;
+}
+.category-div a{
+  display: block;
+  color: white;
+  padding: 1em;
+  text-decoration: none;
+}
+
+.category-div a:hover{
+  text-decoration: none;
+}

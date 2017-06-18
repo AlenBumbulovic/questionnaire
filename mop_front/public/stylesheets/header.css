@@ -1,0 +1,22 @@
+header{
+    min-height: 80px;
+    background-color: #ea4335;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 5px solid darkred;
+}
+
+.logo{
+    float: left;
+}
+
+.mopLogo{
+    padding-left: 15px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.mopTitle{
+    padding-top: 10px;
+}
