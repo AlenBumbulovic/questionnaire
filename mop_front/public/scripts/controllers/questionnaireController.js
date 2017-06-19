@@ -1,5 +1,5 @@
 angular.module('mop_questionnaire')
-    .controller('questionnaireController', ['$scope', '$http', 'config', function ($scope,$http, config) {
+    .controller('questionnaireController', ['$scope', '$http', 'config','toastr', function ($scope,$http, config, toastr) {
 
         var vm = this;
 
@@ -15,7 +15,7 @@ angular.module('mop_questionnaire')
                     vm.questions = response.data;
 
                 }else{
-
+                    toastr.error('Something went wrong', 'Error');
                 }
 
             }, function errorCallback(error) {
@@ -26,56 +26,100 @@ angular.module('mop_questionnaire')
         vm.getSingleQuestionnaire();
 
 
-        vm.answerModel = {};
         vm.showError = false;
-
+        vm.answerModel = [];
 
         vm.saveAnswers = function (questions) {
 
-            vm.answerModel = [];
-            vm.answerModel.questions = [];
-            vm.answerModel.answers = [];
+            vm.answerModel.userAnswer = [];
             vm.answerModel.name = vm.questions.name;
             vm.answerModel.lastname = vm.questions.lastname;
             vm.answerModel.email = vm.questions.email;
-            vm.answerModel.answers = vm.questions.answers;
+            vm.answerModel.userAnswer = vm.questions.userAnswers;
+            vm.answerModel.userInfo = vm.questions.userInfo;
+          //  console.log(vm.answerModel.userInfo);
 
-
-            for(var key in vm.questions){
-              //  console.log(vm.questions[key]);
-                if(vm.questions[key].question_id) {
-                    vm.answerModel.questions.push({
-                        question_id: vm.questions[key].question_id,
-
-                    });
+            for(var key in vm.questions.userAnswers){
+                if(vm.answerModel.userAnswer[key] instanceof Array){
+                    for(var x in vm.answerModel.userAnswer[key]){
+                        vm.answerModel.push({
+                            answer_id : vm.answerModel.userAnswer[key][x].answer_id,
+                            question_id : vm.answerModel.userAnswer[key][x].question_id,
+                            answer_text : vm.answerModel.userAnswer[key][x].answer,
+                            question_text : vm.answerModel.userAnswer[key][x].question_text
+                        })
+                    }
                 }
             }
 
-            // console.log(vm.answerModel);
-
-            for(var x in vm.answerModel.answers){
-                console.log(vm.answerModel.answers[x]);
+            for(var y in vm.answerModel.userInfo){
+                vm.answerModel.push({
+                    answer_id : vm.answerModel.userInfo[y].answer_id,
+                    question_id : vm.answerModel.userInfo[y].question_id,
+                    answer_text : vm.answerModel.userInfo[y].answer,
+                    question_text : vm.answerModel.userInfo[y].answer_text,
+                })
             }
 
-            if(vm.answerModel.name === undefined || vm.answerModel.name.length === 0){
+            delete vm.answerModel.userInfo;
+            delete vm.answerModel.userAnswer;
+
+             vm.finalModel = [];
+             vm.finalModel.questions = [];
+
+            vm.finalModel.name = vm.answerModel.name;
+            vm.finalModel.lastname = vm.answerModel.lastname;
+            vm.finalModel.email = vm.answerModel.email;
+
+
+            for(var a in vm.answerModel){
+                if(vm.answerModel[a] instanceof Object){
+                    vm.finalModel.questions.push({
+                        question_id: vm.answerModel[a].question_id,
+                        question_text: vm.answerModel[a].question_text,
+                        answers: {
+                            answer_id: vm.answerModel[a].answer_id,
+                            answer_text: vm.answerModel[a].answer_text
+                        }
+                    })
+
+                }
+            }
+
+            console.log(vm.finalModel);
+
+
+            if(vm.finalModel.name === undefined || vm.finalModel.name.length === 0){
                 vm.showError = true;
                 return;
             }
 
-            if(vm.answerModel.lastname === undefined || vm.answerModel.lastname.length === 0){
+            if(vm.finalModel.lastname === undefined || vm.finalModel.lastname.length === 0){
                 vm.showError = true;
                 return;
             }
 
-            if(vm.answerModel.email === undefined || vm.answerModel.email.length === 0){
+            if(vm.finalModel.email === undefined || vm.finalModel.email.length === 0){
                 vm.showError = true;
                 return;
             }
 
-            $http.post(config.apiUrl + '/answers/create', vm.answerModel).then(function successCallback(response) {
-                console.log(response)
-            }, function errorCallback(err) {
-                console.log(err)
+            $http({
+                method: 'POST',
+                url: config.apiUrl + '/answers/create',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: vm.finalModel,
+
+            }).then(function successCallback(response) {
+
+                if(response.status === 200){
+                    toastr.success("Questionnaire was saved successfully", "Success");
+                }
+
+            }, function errorCallback(response) {
+
             });
 
 

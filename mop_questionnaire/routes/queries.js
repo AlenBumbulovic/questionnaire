@@ -98,21 +98,21 @@ function getQuestionnaireByCategory(req, res, next) {
 }
 
 function createUserAnswers(req, res, next) {
-    console.log(req.body);
-    db.none('INSERT INTO public.user_answers("name", "lastname",' +
-        ' "email", "answer_id", "question_id")' +
-        'VALUES(${name}, ${lastname}, ${email}, ${answers}, ${questions)', req.body)
-        .then(function () {
-            res.status(200)
-                .json({
-                    status: 'success',
-                    message: 'user answers inserted!'
-                });
-            console.log("success!");
-        })
-        .catch(function (err) {
-            return next(console.error('ERROR! ', err.message));
-        });
+    console.log(req);
+    // db.none('INSERT INTO public.user_answers("name", "lastname",' +
+    //     ' "email", "answer_id", "question_id")' +
+    //     'VALUES(${name}, ${lastname}, ${email}, ${answers}, ${questions)', req.body)
+    //     .then(function () {
+    //         res.status(200)
+    //             .json({
+    //                 status: 'success',
+    //                 message: 'user answers inserted!'
+    //             });
+    //         console.log("success!");
+    //     })
+    //     .catch(function (err) {
+    //         return next(console.error('ERROR! ', err.message));
+    //     });
 }
 
 

@@ -24,15 +24,15 @@
         </div>
     </div>
     <div class="row" ng-repeat="question in QC.questions">
-        <div class="col-md-12 text-center question"><p ng-model="QC.questions[question]">{{question.question_text}}</p></div>
+        <div class="col-md-12 text-center question"><p ng-model="QC.questions.userAnswers[question]">{{question.question_text}}</p></div>
         <div class="col-md-12 text-center" ng-switch="question.question_type">
 
             <ul class="answer checkbox-inline" ng-switch-when="2" ng-repeat="answer in question.answers" >
-               <li> <label><input type="checkbox" data-checklist-model="QC.questions.answers[answer.question_id]" data-checklist-value="answer">{{answer.answer}}</label></li>
+               <li> <label><input type="checkbox" data-checklist-model="QC.questions.userAnswers[answer.question_id]" data-checklist-value="answer">{{answer.answer}}</label></li>
              </ul>
 
             <ul class="answer radio-inline" ng-switch-when="1" ng-repeat="answer in question.answers">
-               <li> <label><input type="radio" class="myCheckbox" name="radio{{answer.question_id}}" ng-model="QC.questions.answers[answer.question_id]" ng-value="answer">{{answer.answer}}</label></li>
+               <li> <label><input type="radio" class="myCheckbox" name="radio{{answer.question_id}}" ng-model="QC.questions.userInfo[answer.question_id]" ng-value="answer">{{answer.answer}}</label></li>
             </ul>
     </div>
 </div>
@@ -71,8 +71,10 @@
 <script src="javascripts/angular.js"></script>
 <script src="javascripts/angular-route.js"></script>
 <script src="javascripts/bootstrap.js"></script>
-<!--<script src="javascripts/angular-toastr.js"></script>-->
-<!--<script src="node_modules/angular-animate/angular-animate.js"></script>-->
+<script src="javascripts/angular-toastr.tpls.js"></script>
+
+
+
 
 
 <!--<script src="scripts/home_app.js"></script>-->
