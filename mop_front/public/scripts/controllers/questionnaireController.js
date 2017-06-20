@@ -90,17 +90,21 @@ angular.module('mop_questionnaire')
 
 
             if(vm.finalModel.name === undefined || vm.finalModel.name.length === 0){
-                vm.showError = true;
+                // vm.showError = true;
+
+                toastr.error("Please fill the form!", "Error");
                 return;
             }
 
             if(vm.finalModel.lastname === undefined || vm.finalModel.lastname.length === 0){
-                vm.showError = true;
+                // vm.showError = true;
+                toastr.error("Please fill the form!", "Error");
                 return;
             }
 
             if(vm.finalModel.email === undefined || vm.finalModel.email.length === 0){
-                vm.showError = true;
+                // vm.showError = true;
+                toastr.error("Please fill the form!", "Error");
                 return;
             }
 
@@ -110,12 +114,16 @@ angular.module('mop_questionnaire')
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data: vm.finalModel,
+                data: vm.finalModel
 
             }).then(function successCallback(response) {
+                    console.log(response);
 
                 if(response.status === 200){
                     toastr.success("Questionnaire was saved successfully", "Success");
+                }else{
+                    toastr.warning("Something went wrong, questionnaire was" +
+                        " not saveed.", "Warning");
                 }
 
             }, function errorCallback(response) {
