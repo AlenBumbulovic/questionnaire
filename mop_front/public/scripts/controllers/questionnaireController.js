@@ -1,5 +1,5 @@
 angular.module('mop_questionnaire')
-    .controller('questionnaireController', ['$scope', '$http', 'config','toastr', function ($scope,$http, config, toastr) {
+    .controller('questionnaireController', ['$scope', '$http', 'config','toastr','$location','$timeout', function ($scope,$http, config, toastr, $location, $timeout) {
 
         var vm = this;
 
@@ -37,7 +37,6 @@ angular.module('mop_questionnaire')
             vm.answerModel.email = vm.questions.email;
             vm.answerModel.userAnswer = vm.questions.userAnswers;
             vm.answerModel.userInfo = vm.questions.userInfo;
-          //  console.log(vm.answerModel.userInfo);
 
             for(var key in vm.questions.userAnswers){
                 if(vm.answerModel.userAnswer[key] instanceof Array){
@@ -64,7 +63,7 @@ angular.module('mop_questionnaire')
             delete vm.answerModel.userInfo;
             delete vm.answerModel.userAnswer;
 
-             vm.finalModel = [];
+             vm.finalModel = {};
              vm.finalModel.questions = [];
 
             vm.finalModel.name = vm.answerModel.name;
@@ -77,21 +76,17 @@ angular.module('mop_questionnaire')
                     vm.finalModel.questions.push({
                         question_id: vm.answerModel[a].question_id,
                         question_text: vm.answerModel[a].question_text,
-                        answers: {
+                        answers: [{
                             answer_id: vm.answerModel[a].answer_id,
                             answer_text: vm.answerModel[a].answer_text
-                        }
+                        }]
                     })
 
                 }
             }
 
-            console.log(vm.finalModel);
-
-
             if(vm.finalModel.name === undefined || vm.finalModel.name.length === 0){
                 // vm.showError = true;
-
                 toastr.error("Please fill the form!", "Error");
                 return;
             }
@@ -117,21 +112,18 @@ angular.module('mop_questionnaire')
                 data: vm.finalModel
 
             }).then(function successCallback(response) {
-                    console.log(response);
 
                 if(response.status === 200){
                     toastr.success("Questionnaire was saved successfully", "Success");
+                    
                 }else{
                     toastr.warning("Something went wrong, questionnaire was" +
-                        " not saveed.", "Warning");
+                        " not saved.", "Warning");
                 }
 
             }, function errorCallback(response) {
 
             });
-
-
         };
-
     }]);
 

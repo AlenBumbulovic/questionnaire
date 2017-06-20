@@ -39,6 +39,7 @@ a {
 .wrapper {
   max-width: 940px;
   margin: 0 auto;
+  margin-bottom: 50px;
 }
 
 .wrapper > div {
